@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('skill__sets', function (Blueprint $table) {
-            $table->bigInteger('candidate_id')->unsigned();
-            $table->bigInteger('skill_id')->unsigned();
-
+        Schema::create('skill_sets', function (Blueprint $table) {
+            
+            $table->id();
             // Foreign key constraints
-            $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
-            $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
+            $table->foreignId('candidates_id')->constrained();
+            $table->foreignId('skills_id')->constrained();
 
         });
     }

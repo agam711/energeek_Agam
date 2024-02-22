@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\LoginController;
+use App\Models\Candidates;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'index'])->name('login');
 
 Route::post('/auth', [LoginController::class, 'authenticate'])->name('auth');
+
+Route::get('/coba', function () {
+    $user =  Candidates::find(1);
+    $skill = ['1', '2', '3'];
+    $user->skill_sets()->sync($skill);
+});
 
 Route::middleware('auth')->group(function () {
 

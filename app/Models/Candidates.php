@@ -26,9 +26,10 @@ class Candidates extends Model
     {
         return $this->belongsTo(Jobs::class);
     }
-    public function Skill_Sets()
+
+    public function skill_sets()
     {
-        return $this->hasMany(Skill_Sets::class);
+        return $this->belongsToMany(Skills::class, 'skill_sets');
     }
 
 }

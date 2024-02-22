@@ -88,7 +88,7 @@
                     </div>
                     <label>Skill Set :</label>
                     <div class="input-group mb-3">
-                        <select name="skill" class="select2" multiple="multiple" data-placeholder="Pilih Skill" style="width: 100%;">
+                        <select name="skill[]" class="select2" multiple="multiple" data-placeholder="Pilih Skill" style="width: 100%;">
                           @foreach ($skill as $skills)
                           <option value="{{ $skills->id }}">{{ $skills->name }}</option>
                           @endforeach

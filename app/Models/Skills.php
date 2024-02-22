@@ -18,8 +18,9 @@ class Skills extends Model
         'name',
     ];
 
-    public function Skill_Sets()
+    public function candidates_sets()
     {
-        return $this->hasMany(Skill_Sets::class);
+        return $this->belongsToMany(Candidates::class, 'skill_sets');
     }
+
 }
