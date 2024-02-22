@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 21, 2024 at 08:01 AM
+-- Generation Time: Feb 22, 2024 at 07:42 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -64,8 +64,8 @@ CREATE TABLE `jobs` (
 --
 
 INSERT INTO `jobs` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 'Frontend Web Programmer', NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'Backend Web Programmer', NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 'Frontend Web Programmer', '2024-02-21 22:43:41', '2024-02-21 22:43:41', NULL, NULL, NULL, NULL),
+(2, 'Backend Web Programmer', '2024-02-21 22:43:41', '2024-02-21 22:43:41', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -132,20 +132,21 @@ CREATE TABLE `skills` (
 --
 
 INSERT INTO `skills` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 'PHP', NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'PostgreSQL', NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'API (JSON, REST)', NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Version Control System (Gitlab, Github)', NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 'PHP', '2024-02-21 22:43:45', '2024-02-21 22:43:45', NULL, NULL, NULL, NULL),
+(2, 'PostgreSQL', '2024-02-21 22:43:45', '2024-02-21 22:43:45', NULL, NULL, NULL, NULL),
+(3, 'API (JSON, REST)', '2024-02-21 22:43:45', '2024-02-21 22:43:45', NULL, NULL, NULL, NULL),
+(4, 'Version Control System (Gitlab, Github)', '2024-02-21 22:43:45', '2024-02-21 22:43:45', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `skill__sets`
+-- Table structure for table `skill_sets`
 --
 
-CREATE TABLE `skill__sets` (
-  `candidate_id` bigint UNSIGNED NOT NULL,
-  `skill_id` bigint UNSIGNED NOT NULL
+CREATE TABLE `skill_sets` (
+  `id` bigint UNSIGNED NOT NULL,
+  `candidates_id` bigint UNSIGNED NOT NULL,
+  `skills_id` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -170,7 +171,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'agam', 'agam@s.com', NULL, '$2y$12$w7qWQcUvtGL4H4ckuu6gauEK1qxVX.SwaTCM1XEmIe6u74lHVYd6G', NULL, '2024-02-21 00:52:23', '2024-02-21 00:52:23');
+(1, 'agam', 'agam@s.com', NULL, '$2y$12$kgEqaGLzawny4NwcanRh3u./i1f5ZRmv48MzuG2FRHb0Gtzj9wxiG', NULL, '2024-02-21 22:43:39', '2024-02-21 22:43:39');
 
 --
 -- Indexes for dumped tables
@@ -219,11 +220,12 @@ ALTER TABLE `skills`
   ADD KEY `skills_deleted_by_foreign` (`deleted_by`);
 
 --
--- Indexes for table `skill__sets`
+-- Indexes for table `skill_sets`
 --
-ALTER TABLE `skill__sets`
-  ADD KEY `skill__sets_candidate_id_foreign` (`candidate_id`),
-  ADD KEY `skill__sets_skill_id_foreign` (`skill_id`);
+ALTER TABLE `skill_sets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `skill_sets_candidates_id_foreign` (`candidates_id`),
+  ADD KEY `skill_sets_skills_id_foreign` (`skills_id`);
 
 --
 -- Indexes for table `users`
@@ -240,7 +242,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `candidates`
 --
 ALTER TABLE `candidates`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -265,6 +267,12 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `skills`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `skill_sets`
+--
+ALTER TABLE `skill_sets`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -302,11 +310,11 @@ ALTER TABLE `skills`
   ADD CONSTRAINT `skills_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `skill__sets`
+-- Constraints for table `skill_sets`
 --
-ALTER TABLE `skill__sets`
-  ADD CONSTRAINT `skill__sets_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `skill__sets_skill_id_foreign` FOREIGN KEY (`skill_id`) REFERENCES `skills` (`id`) ON DELETE CASCADE;
+ALTER TABLE `skill_sets`
+  ADD CONSTRAINT `skill_sets_candidates_id_foreign` FOREIGN KEY (`candidates_id`) REFERENCES `candidates` (`id`),
+  ADD CONSTRAINT `skill_sets_skills_id_foreign` FOREIGN KEY (`skills_id`) REFERENCES `skills` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
