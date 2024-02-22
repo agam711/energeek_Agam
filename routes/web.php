@@ -20,12 +20,6 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 
 Route::post('/auth', [LoginController::class, 'authenticate'])->name('auth');
 
-Route::get('/coba', function () {
-    $user =  Candidates::find(1);
-    $skill = ['1', '2', '3'];
-    $user->skill_sets()->sync($skill);
-});
-
 Route::middleware('auth')->group(function () {
 
     Route::get('/apply', [LoginController::class, 'apply'])->name('apply');
